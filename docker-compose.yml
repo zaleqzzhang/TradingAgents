@@ -8,6 +8,22 @@ services:
     tty: true
     stdin_open: true
 
+  tradingagents-tokenhub:
+    build: .
+    env_file:
+      - .env
+    environment:
+      - OPENAI_API_KEY=${TOKENHUB_API_KEY}
+      - OPENAI_BASE_URL=${TOKENHUB_BASE_URL}
+      - LLM_PROVIDER=openai
+      - TOKENHUB_MODEL=${TOKENHUB_MODEL}
+    volumes:
+      - tradingagents_data:/home/appuser/.tradingagents
+    tty: true
+    stdin_open: true
+    profiles:
+      - tokenhub
+
   ollama:
     image: ollama/ollama:latest
     volumes:
